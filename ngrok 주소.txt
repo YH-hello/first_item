@@ -1,0 +1,3 @@
+https://shallot-uncooked-breath.ngrok-free.dev
+
+이것이 여러분의 로컬 젠킨스로 들어오는 "공용 인터넷 주소"입니다.

@@ -1,0 +1,32 @@
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins-server
+    restart: always
+    ports:
+      - "9090:8080"
+      # 50000 포트 줄은 아예 삭제하거나 아래처럼 #으로 주석 처리하세요.
+      # - "50000:50000" 
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - ci-cd-net
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx-proxy
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      - ci-cd-net
+
+networks:
+  ci-cd-net:
+    driver: bridge
+
+volumes:
+  jenkins_home:
