@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   jenkins:
     image: jenkins/jenkins:lts
@@ -5,8 +7,6 @@ services:
     restart: always
     ports:
       - "9090:8080"
-      # 50000 포트 줄은 아예 삭제하거나 아래처럼 #으로 주석 처리하세요.
-      # - "50000:50000" 
     volumes:
       - jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
@@ -21,6 +21,23 @@ services:
       - "80:80"
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
+      # Jenkins 데이터를 Nginx 웹 경로와 공유
+      - jenkins_home:/usr/share/nginx/html
+    networks:
+      - ci-cd-net
+
+  neo4j:
+    image: neo4j:5.20
+    container_name: neo4j-db
+    restart: always
+    ports:
+      - "7474:7474"   # Neo4j Browser (웹 UI)
+      - "7687:7687"   # Bolt 프로토콜 (애플리케이션 연결)
+    environment:
+      - NEO4J_AUTH=neo4j/morning1   # 기본 계정/비밀번호 (neo4j / morning1)
+    volumes:
+      - neo4j_data:/data
+      - neo4j_logs:/logs
     networks:
       - ci-cd-net
 
@@ -30,3 +47,5 @@ networks:
 
 volumes:
   jenkins_home:
+  neo4j_data:
+  neo4j_logs:
