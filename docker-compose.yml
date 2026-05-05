@@ -34,7 +34,7 @@ services:
       - "7474:7474"   # Neo4j Browser (웹 UI)
       - "7687:7687"   # Bolt 프로토콜 (애플리케이션 연결)
     environment:
-      - NEO4J_AUTH=neo4j/morning1   # 기본 계정/비밀번호 (neo4j / morning1)
+      - NEO4J_AUTH=neo4j/morning123   # 기본 계정/비밀번호 (neo4j / morning123)
     volumes:
       - neo4j_data:/data
       - neo4j_logs:/logs
