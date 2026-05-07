@@ -1,0 +1,23 @@
+# 환경변수
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Streamlit
+.streamlit/
+
+# 임시 파일
+*.tmp
+*.html
+
+*.yaml
+
+config.yaml
+config.json
+
+.continue/*.*

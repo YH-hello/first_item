@@ -41,6 +41,18 @@ services:
     networks:
       - ci-cd-net
 
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: qdrant-db
+    restart: always
+    ports:
+      - "6333:6333"   # REST API
+      - "6334:6334"   # gRPC
+    volumes:
+      - qdrant_data:/qdrant/storage
+    networks:
+      - ci-cd-net
+
 networks:
   ci-cd-net:
     driver: bridge
@@ -49,3 +61,4 @@ volumes:
   jenkins_home:
   neo4j_data:
   neo4j_logs:
+  qdrant_data:
